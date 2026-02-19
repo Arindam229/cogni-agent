@@ -1,0 +1,18 @@
+# Server
+fastapi>=0.109,<0.111
+uvicorn[standard]>=0.27,<0.29
+
+# Config & validation
+pydantic>=2.5,<2.7
+pydantic-settings>=2.1,<2.3
+python-dotenv>=1.0,<1.1
+
+# Google GenAI SDK (Gemini)
+google-genai>=1.0
+google-api-core>=2.15.0
+
+# Forms / uploads
+python-multipart>=0.0.6,<0.0.8
+
+# Rate limiting
+slowapi>=0.1.9,<0.2
