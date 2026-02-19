@@ -37,8 +37,9 @@ if ! check_python_version "$PYTHON_EXEC"; then
     else
         echo "📦 Bootstrapping Miniconda (Local Python Installation)..."
         
-        # Download Miniconda
-        wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+        # Download Miniconda (Specific version for Ubuntu 18.04 / GLIBC 2.27)
+        # Using Python 3.9 version which is compatible
+        wget https://repo.anaconda.com/miniconda/Miniconda3-py39_4.12.0-Linux-x86_64.sh -O miniconda.sh
         
         # Install privately
         bash miniconda.sh -b -p "$BOOTSTRAP_DIR"
