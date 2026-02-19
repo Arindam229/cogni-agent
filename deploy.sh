@@ -62,14 +62,29 @@ git fetch origin
 git reset --hard origin/main
 
 # 2. Setup/Update Virtual Environment (using the good python)
-if [ ! -d "venv" ] || [ ! -f "venv/bin/activate" ]; then
+NUM_VENV_CHECKS=0
+if [ -d "venv" ] && [ -f "venv/bin/python" ]; then
+    # Check if existing venv is the same version as our desired python
+    VENV_VER=$(./venv/bin/python --version)
+    DESIRED_VER=$($PYTHON_EXEC --version)
+    
+    if [ "$VENV_VER" != "$DESIRED_VER" ]; then
+        echo "⚠️  Existing venv is ($VENV_VER), but we need ($DESIRED_VER)."
+        echo "♻️  Recreating venv..."
+        rm -rf venv
+    fi
+fi
+
+if [ ! -d "venv" ]; then
     echo "🐍 Creating virtual environment..."
-    rm -rf venv
     $PYTHON_EXEC -m venv venv
 fi
 
 echo "🔌 Activating venv..."
 source venv/bin/activate
+
+# Ensure pip is up to date inside venv
+pip install --upgrade pip
 
 # 3. Install Dependencies
 echo "📦 Installing requirements..."
